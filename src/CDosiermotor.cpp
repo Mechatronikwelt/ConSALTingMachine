@@ -22,13 +22,17 @@ void CDosiermotor::dosieren(float Salzmenge_in_mg)
 {
     float stepsProLoch = (float)Anzahl_Schritte_pro_Umdrehung / (float)Anzahl_Dosiereinheiten_pro_Umdrehung; // 60 Grad
 
-    float Dosierloch_counter = Salzmenge_in_mg / Salzmenge_pro_Dosiereinheit_in_mg; // wie oft die 60 Grad gefahren werden müssen
+    float korrektur_faktor = 0.86;
+
+    float Dosierloch_counter = Salzmenge_in_mg / Salzmenge_pro_Dosiereinheit_in_mg * korrektur_faktor; // wie oft die 60 Grad gefahren werden müssen
     
     //Auf oder Abrunden:
     if((Dosierloch_counter - (int)Dosierloch_counter) < 0.5)
       Dosierloch_counter = (int)Dosierloch_counter;
     else
       Dosierloch_counter = (int)Dosierloch_counter + 1;
+
+
 
     int Motorsteps = Dosierloch_counter * stepsProLoch * Uebersetzung_Zahnrad;
 

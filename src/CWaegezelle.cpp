@@ -16,11 +16,12 @@ float CWaegezelle::messwert_in_g()
     LoadCell.powerUp();
     LoadCell.update();
     float mw = LoadCell.getData();
-
+    Serial.println(mw);
     mw = mw - mw_offset;
     mw = mw * 1.47;
 
-    return mw;
+    int offset = 15;
+    return mw + offset;
 }
 
 
@@ -63,7 +64,7 @@ float CWaegezelle::messwert_salz_in_g()
     for(int i = 75 + anzahl_messwerte; i > 0; i--)
     {  
         salzmenge_in_g = messwert_in_g();    
-        Serial.print("salzmenge_in_mg: ");
+        Serial.print("salzmenge_in_g: ");
         Serial.println(salzmenge_in_g);
 
         if(i <= anzahl_messwerte)
